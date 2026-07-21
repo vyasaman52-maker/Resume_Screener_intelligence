@@ -9,9 +9,19 @@ app = FastAPI(
     version="0.1.0",
 )
 
+import os
+
+_cors_origins = [
+    "http://localhost:5173",       # local dev
+]
+# Add deployed frontend URL from environment variable (e.g. GitHub Pages or Vercel)
+_frontend_url = os.getenv("FRONTEND_URL")
+if _frontend_url:
+    _cors_origins.append(_frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
