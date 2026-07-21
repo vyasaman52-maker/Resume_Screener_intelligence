@@ -1,0 +1,160 @@
+skill,category
+python,programming_languages
+java,programming_languages
+javascript,programming_languages
+typescript,programming_languages
+c++,programming_languages
+c#,programming_languages
+c,programming_languages
+go,programming_languages
+rust,programming_languages
+kotlin,programming_languages
+swift,programming_languages
+php,programming_languages
+ruby,programming_languages
+scala,programming_languages
+r,programming_languages
+matlab,programming_languages
+perl,programming_languages
+dart,programming_languages
+sql,programming_languages
+bash,programming_languages
+shell scripting,programming_languages
+react,web_frontend
+angular,web_frontend
+vue,web_frontend
+next.js,web_frontend
+html,web_frontend
+css,web_frontend
+sass,web_frontend
+tailwind css,web_frontend
+bootstrap,web_frontend
+redux,web_frontend
+webpack,web_frontend
+vite,web_frontend
+jquery,web_frontend
+node.js,web_backend
+express.js,web_backend
+django,web_backend
+flask,web_backend
+fastapi,web_backend
+spring boot,web_backend
+asp.net,web_backend
+ruby on rails,web_backend
+graphql,web_backend
+rest api,web_backend
+grpc,web_backend
+microservices,web_backend
+mysql,databases
+postgresql,databases
+mongodb,databases
+sqlite,databases
+redis,databases
+cassandra,databases
+oracle database,databases
+microsoft sql server,databases
+dynamodb,databases
+firebase,databases
+elasticsearch,databases
+neo4j,databases
+aws,cloud_devops
+azure,cloud_devops
+google cloud platform,cloud_devops
+docker,cloud_devops
+kubernetes,cloud_devops
+terraform,cloud_devops
+ansible,cloud_devops
+jenkins,cloud_devops
+github actions,cloud_devops
+gitlab ci,cloud_devops
+ci/cd,cloud_devops
+linux,cloud_devops
+nginx,cloud_devops
+load balancing,cloud_devops
+cloudformation,cloud_devops
+machine learning,data_science_ml
+deep learning,data_science_ml
+natural language processing,data_science_ml
+computer vision,data_science_ml
+data analysis,data_science_ml
+data visualization,data_science_ml
+statistics,data_science_ml
+pandas,data_science_ml
+numpy,data_science_ml
+scikit-learn,data_science_ml
+tensorflow,data_science_ml
+pytorch,data_science_ml
+keras,data_science_ml
+opencv,data_science_ml
+sentence-bert,data_science_ml
+transformers,data_science_ml
+hugging face,data_science_ml
+llm,data_science_ml
+generative ai,data_science_ml
+prompt engineering,data_science_ml
+feature engineering,data_science_ml
+model deployment,data_science_ml
+mlops,data_science_ml
+a/b testing,data_science_ml
+apache spark,data_engineering
+apache kafka,data_engineering
+airflow,data_engineering
+etl,data_engineering
+data warehousing,data_engineering
+big data,data_engineering
+hadoop,data_engineering
+data pipelines,data_engineering
+dbt,data_engineering
+snowflake,data_engineering
+android development,mobile
+ios development,mobile
+flutter,mobile
+react native,mobile
+swift ui,mobile
+kotlin multiplatform,mobile
+unit testing,testing_qa
+integration testing,testing_qa
+pytest,testing_qa
+junit,testing_qa
+selenium,testing_qa
+cypress,testing_qa
+test automation,testing_qa
+postman,testing_qa
+load testing,testing_qa
+jest,testing_qa
+git,project_tools
+github,project_tools
+gitlab,project_tools
+jira,project_tools
+confluence,project_tools
+agile,project_tools
+scrum,project_tools
+kanban,project_tools
+trello,project_tools
+notion,project_tools
+cybersecurity,security
+penetration testing,security
+owasp,security
+oauth,security
+jwt,security
+encryption,security
+network security,security
+vulnerability assessment,security
+communication,soft_skills
+leadership,soft_skills
+teamwork,soft_skills
+problem solving,soft_skills
+critical thinking,soft_skills
+time management,soft_skills
+adaptability,soft_skills
+collaboration,soft_skills
+presentation skills,soft_skills
+mentoring,soft_skills
+excel,business_analytics
+power bi,business_analytics
+tableau,business_analytics
+google analytics,business_analytics
+sql reporting,business_analytics
+business intelligence,business_analytics
+financial modeling,business_analytics
+market research,business_analytics

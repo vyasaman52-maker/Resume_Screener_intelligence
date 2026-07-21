@@ -1,0 +1,30 @@
+# --- Core framework ---
+fastapi
+uvicorn[standard]
+pymongo
+python-dotenv
+pydantic
+joblib                       # load ats_score_model.pkl (saved with joblib.dump)
+scikit-learn
+numpy
+pandas
+python-multipart             # multipart form uploads (resume file)
+
+# --- Resume parsing (Objective 2) ---
+pdfplumber                   # PDF text extraction
+python-docx                  # DOCX text extraction
+
+# --- Embeddings (Objective 4) ---
+sentence-transformers        # semantic similarity via cosine distance
+
+# --- Gemini AI (Objective 9) ---
+google-genai                 # google-genai SDK (replaces deprecated google-generativeai)
+
+# --- Authentication (Objective 12/2) ---
+python-jose[cryptography]    # JWT encode/decode
+passlib[bcrypt]              # password hashing
+
+# --- Testing (Objective 15) ---
+pytest
+httpx
+bcrypt

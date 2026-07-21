@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./resume_screener_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # These will be read from the host's environment or a .env file when run
+      - MONGO_URI=${MONGO_URI}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./resume_screener_frontend/resume_screener_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

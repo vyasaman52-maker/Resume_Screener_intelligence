@@ -1,0 +1,14 @@
+category,course_title,provider,url
+programming_languages,Programming Fundamentals Specialization,Coursera,https://www.coursera.org/specializations/programming-fundamentals
+web_frontend,Frontend Web Development Bootcamp,freeCodeCamp,https://www.freecodecamp.org/learn/2022/responsive-web-design/
+web_backend,Backend Development and APIs,freeCodeCamp,https://www.freecodecamp.org/learn/back-end-development-and-apis/
+databases,Databases and SQL for Data Science,Coursera,https://www.coursera.org/learn/sql-data-science
+cloud_devops,Cloud DevOps Engineering,Coursera,https://www.coursera.org/professional-certificates/devops-and-sre
+data_science_ml,Machine Learning Specialization,Coursera (DeepLearning.AI),https://www.coursera.org/specializations/machine-learning-introduction
+data_engineering,Data Engineering Foundations,Coursera,https://www.coursera.org/professional-certificates/ibm-data-engineer
+mobile,Android/iOS App Development,Coursera,https://www.coursera.org/professional-certificates/meta-android-developer
+testing_qa,Software Testing and Automation,Coursera,https://www.coursera.org/learn/automation-testing-python
+project_tools,Agile Project Management,Coursera,https://www.coursera.org/learn/agile-project-management
+security,Cybersecurity Fundamentals,Coursera (Google),https://www.coursera.org/professional-certificates/google-cybersecurity
+soft_skills,Effective Communication and Leadership,Coursera,https://www.coursera.org/learn/wharton-communication-skills
+business_analytics,Business Analytics Specialization,Coursera,https://www.coursera.org/specializations/business-analytics
