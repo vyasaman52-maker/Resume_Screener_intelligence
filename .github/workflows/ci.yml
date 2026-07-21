@@ -9,6 +9,7 @@ on:
 jobs:
   backend-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.10
@@ -19,7 +20,7 @@ jobs:
         working-directory: ./resume_screener_backend
         run: |
           python -m pip install --upgrade pip
-          pip install fastapi uvicorn pymongo python-dotenv pydantic python-jose[cryptography] passlib[bcrypt] bcrypt pytest httpx
+          pip install -r requirements.txt
       - name: Run Pytest
         working-directory: ./resume_screener_backend
         run: |
