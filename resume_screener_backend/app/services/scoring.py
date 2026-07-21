@@ -25,8 +25,15 @@ from pathlib import Path
 
 MODEL_DIR = Path(__file__).resolve().parent.parent / "ml_models"
 
-_model = joblib.load(MODEL_DIR / "ats_score_model.pkl")
-FEATURE_NAMES = joblib.load(MODEL_DIR / "feature_names.pkl")
+_model = None
+_feature_names = None
+
+def _load_model():
+    global _model, _feature_names
+    if _model is None:
+        _model = joblib.load(MODEL_DIR / "ats_score_model.pkl")
+        _feature_names = joblib.load(MODEL_DIR / "feature_names.pkl")
+    return _model, _feature_names
 
 
 def score_features(feature_dict: dict) -> float:
@@ -35,10 +42,11 @@ def score_features(feature_dict: dict) -> float:
     Returns an ATS score 0-100, matching how ats_score was built originally
     (model output * 100, rounded to 2 decimal places).
     """
-    missing = [f for f in FEATURE_NAMES if f not in feature_dict]
+    model, feature_names = _load_model()
+    missing = [f for f in feature_names if f not in feature_dict]
     if missing:
         raise ValueError(f"Missing required features: {missing}")
 
-    row = [[feature_dict[name] for name in FEATURE_NAMES]]
-    prediction = _model.predict(row)[0]
+    row = [[feature_dict[name] for name in feature_names]]
+    prediction = model.predict(row)[0]
     return round(float(prediction) * 100, 2)
