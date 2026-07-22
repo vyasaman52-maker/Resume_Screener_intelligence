@@ -9,7 +9,9 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 /*  Constants                                                                   */
 /* ─────────────────────────────────────────────────────────────────────────── */
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = import.meta.env.PROD
+  ? "https://resume-screener-intelligence.onrender.com"
+  : "http://127.0.0.1:8000";
 const SLIDE_DURATION = 40000; // 40 seconds per slide
 
 const SLIDES = [
