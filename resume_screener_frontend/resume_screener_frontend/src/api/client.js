@@ -3,9 +3,7 @@
 // requests directly - same reasoning as separating routers from services
 // on the backend: keep the "how we talk to the API" logic in one place.
 
-const API_BASE_URL = import.meta.env.PROD
-  ? "https://resume-screener-intelligence.onrender.com"
-  : "http://127.0.0.1:8000";
+const API_BASE_URL = "https://resume-screener-intelligence.onrender.com";
 
 /**
  * Calls POST /resumes/score with a resume file + job description text.
