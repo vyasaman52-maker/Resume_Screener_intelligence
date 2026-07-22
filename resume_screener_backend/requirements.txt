@@ -7,6 +7,7 @@ pydantic
 joblib                       # load ats_score_model.pkl (saved with joblib.dump)
 scikit-learn
 numpy
+pandas
 python-multipart             # multipart form uploads (resume file)
 
 # --- Resume parsing (Objective 2) ---
