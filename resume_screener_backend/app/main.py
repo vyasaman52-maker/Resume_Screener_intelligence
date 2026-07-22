@@ -13,6 +13,7 @@ import os
 
 _cors_origins = [
     "http://localhost:5173",       # local dev
+    "https://vyasaman52-maker.github.io",  # GitHub Pages
 ]
 # Add deployed frontend URL from environment variable (e.g. GitHub Pages or Vercel)
 _frontend_url = os.getenv("FRONTEND_URL")
