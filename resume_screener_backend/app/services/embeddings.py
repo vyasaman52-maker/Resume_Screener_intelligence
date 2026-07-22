@@ -20,7 +20,7 @@ def embed(text: str) -> np.ndarray:
     """
     chunks = _chunk_text(text)
     response = _client.models.embed_content(
-        model='text-embedding-004',
+        model='gemini-embedding-2',
         contents=chunks,
     )
     # Average the chunk embeddings

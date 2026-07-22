@@ -33,10 +33,9 @@ _client = genai.Client(api_key=GEMINI_API_KEY)
 # ── Model priority list ────────────────────────────────────────────────────
 # We try each model in order. If one is overloaded (503) we move to the next.
 _MODELS = [
-    "gemini-3.5-flash",        # Latest flash model
-    "gemini-2.5-flash",        # Very fast, latest 2.5
-    "gemini-2.0-flash",        # Fast widely available
-    "gemini-flash-latest",     # Stable fallback alias
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-flash-latest",
 ]
 
 MAX_RETRIES = 3          # retries per model before moving to next
