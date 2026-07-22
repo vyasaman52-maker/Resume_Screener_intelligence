@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Validate Python syntax
+        working-directory: ./resume_screener_backend
+        run: |
+          python -m py_compile app/config.py
+          python -m py_compile app/database.py
+          python -m py_compile app/routers/auth.py
+          python -m py_compile app/routers/candidates.py
+          python -m py_compile app/routers/jobs.py
+          python -m py_compile app/routers/resumes.py
+          python -m py_compile app/routers/courses.py
+          echo "All backend modules compiled successfully"
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        working-directory: ./resume_screener_frontend/resume_screener_frontend
+        run: npm ci
+      - name: Run React Tests
+        working-directory: ./resume_screener_frontend/resume_screener_frontend
+        run: npm test
