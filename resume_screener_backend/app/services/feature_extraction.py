@@ -2,11 +2,19 @@
 import re
 from pathlib import Path
 
-import pandas as pd
+import csv
 
 DATA_DIR = Path(__file__).resolve().parent.parent.parent / "data_archive"
-_taxonomy_df = pd.read_csv(DATA_DIR / "skills_taxonomy.csv")
-ALL_SKILLS = sorted(_taxonomy_df["skill"].str.lower().tolist(), key=len, reverse=True)
+
+def _load_skills():
+    skills = []
+    with open(DATA_DIR / "skills_taxonomy.csv", newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            skills.append(row["skill"].lower())
+    return sorted(skills, key=len, reverse=True)
+
+ALL_SKILLS = _load_skills()
 
 EDUCATION_LEVELS = {
     "phd": 5, "doctorate": 5,

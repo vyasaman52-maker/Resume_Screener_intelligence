@@ -1,33 +1,31 @@
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity as sk_cosine_similarity
+from google import genai
+from app.config import GEMINI_API_KEY
 
-_model = None
+_client = genai.Client(api_key=GEMINI_API_KEY)
 
-def _get_model():
-    global _model
-    if _model is None:
-        from sentence_transformers import SentenceTransformer
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
-    return _model
-
-MAX_TOKENS_PER_CHUNK = 256
-APPROX_CHARS_PER_TOKEN = 4
-
+MAX_CHARS_PER_CHUNK = 2000
 
 def _chunk_text(text: str) -> list[str]:
-    max_chars = MAX_TOKENS_PER_CHUNK * APPROX_CHARS_PER_TOKEN
-    if len(text) <= max_chars:
+    if len(text) <= MAX_CHARS_PER_CHUNK:
         return [text]
-    return [text[i:i + max_chars] for i in range(0, len(text), max_chars)]
+    return [text[i:i + MAX_CHARS_PER_CHUNK] for i in range(0, len(text), MAX_CHARS_PER_CHUNK)]
 
 
 def embed(text: str) -> np.ndarray:
+    """
+    Uses Gemini API for embeddings instead of local SentenceTransformers
+    to save 2GB+ of memory and fit inside Render's 512MB free tier.
+    """
     chunks = _chunk_text(text)
-    model = _get_model()
-    if len(chunks) == 1:
-        return model.encode(chunks[0])
-    chunk_vectors = model.encode(chunks)
-    return np.mean(chunk_vectors, axis=0)
+    response = _client.models.embed_content(
+        model='text-embedding-004',
+        contents=chunks,
+    )
+    # Average the chunk embeddings
+    embeddings = [emb.values for emb in response.embeddings]
+    return np.mean(embeddings, axis=0)
 
 
 def cosine_similarity(vec_a: np.ndarray, vec_b: np.ndarray) -> float:
