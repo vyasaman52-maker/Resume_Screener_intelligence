@@ -38,8 +38,8 @@ _MODELS = [
     "gemini-flash-latest",
 ]
 
-MAX_RETRIES = 3          # retries per model before moving to next
-RETRY_DELAY = 2.0        # seconds to wait between retries (doubles each time)
+MAX_RETRIES = 2          # retries per model before moving to next
+RETRY_DELAY = 1.0        # seconds to wait between retries (doubles each time)
 
 
 def _is_overloaded(exc: Exception) -> bool:
@@ -74,6 +74,10 @@ def _generate_with_retry(fn, *args, **kwargs):
                     # Non-transient error (bad request, auth, etc.) — stop immediately
                     raise
         logger.warning("Model %s exhausted retries, trying next model.", model)
+    
+    # If all models failed with 503, raise a clean exception message.
+    if _is_overloaded(last_exc):
+        raise RuntimeError("Google Gemini AI is currently overloaded with high demand. Please try again in a few minutes.")
     raise last_exc  # all models failed
 
 
