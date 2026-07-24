@@ -447,7 +447,11 @@ export default function CandidateDashboard() {
       setQuestions(data.interview_questions);
       setSessionId(data.session_id);
     } catch (err) {
-      setAiFeedbackError(err.message);
+      if (err.message === "Failed to fetch") {
+        setAiFeedbackError("Network Error: The AI service took too long to respond or is temporarily overloaded. Please try again in a few minutes.");
+      } else {
+        setAiFeedbackError(err.message);
+      }
     } finally {
       setAiFeedbackLoading(false);
     }
@@ -481,7 +485,11 @@ export default function CandidateDashboard() {
         if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
       }, 50);
     } catch (err) {
-      setChatError(err.message);
+      if (err.message === "Failed to fetch") {
+        setChatError("Network Error: The AI service took too long to respond or is temporarily overloaded. Please try again in a few minutes.");
+      } else {
+        setChatError(err.message);
+      }
     } finally {
       setChatLoading(false);
     }
