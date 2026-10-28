@@ -34,6 +34,11 @@ def home():
     return {"message": "Resume Screener API is running"}
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok", "message": "Resume Screener API is healthy"}
+
+
 app.include_router(candidates.router)
 app.include_router(predictions.router)
 app.include_router(resumes.router)

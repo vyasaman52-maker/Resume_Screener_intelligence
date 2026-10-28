@@ -21,5 +21,5 @@ COPY . .
 # Expose the API port (7860 is required for Hugging Face Spaces)
 EXPOSE 7860
 
-# Start the FastAPI server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Start the FastAPI server (supports dynamic $PORT for Render and port 7860 for Hugging Face)
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-7860}"]
