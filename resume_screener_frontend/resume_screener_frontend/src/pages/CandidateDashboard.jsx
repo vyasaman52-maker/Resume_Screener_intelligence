@@ -567,8 +567,16 @@ export default function CandidateDashboard() {
                   {verdict}
                 </div>
                 <div className="cd-score-explain">
-                  Your resume scores <strong style={{ color }}>{result.ats_score} / 100</strong> against this job description.
-                  The breakdown below shows which factors drove this score.
+                  {result.is_valid_resume === false ? (
+                    <span style={{ color: "#F5A623" }}>
+                      ⚠ <strong>Non-Resume Document Detected:</strong> {result.validation_note || "This document does not contain typical resume sections (work experience, education, skills, or contact info)."} ATS Score set to 0.
+                    </span>
+                  ) : (
+                    <>
+                      Your resume scores <strong style={{ color }}>{result.ats_score} / 100</strong> against this job description.
+                      The breakdown below shows which factors drove this score.
+                    </>
+                  )}
                 </div>
                 <div className="cd-feature-grid">
                   {Object.entries(result.features_used || {}).map(([k, v]) => (
