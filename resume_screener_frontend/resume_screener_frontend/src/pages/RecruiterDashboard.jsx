@@ -298,6 +298,32 @@ export default function RecruiterDashboard() {
             </button>
           </form>
 
+          {/* Quick preset badges */}
+          <div style={{ display: "flex", gap: "8px", marginTop: "14px", flexWrap: "wrap", alignItems: "center" }}>
+            <span style={{ fontSize: "12px", color: "rgba(245,242,234,0.6)", fontWeight: 600 }}>Quick test:</span>
+            {["AI Engineer", "Data Scientist", "Frontend Developer", "Backend Developer", "Full Stack Developer", "DevOps Engineer"].map((title) => (
+              <button
+                key={title}
+                type="button"
+                onClick={() => { setJobName(title); }}
+                style={{
+                  background: "rgba(245,242,234,0.1)",
+                  border: "1px solid rgba(245,242,234,0.2)",
+                  color: "#F5F2EA",
+                  borderRadius: "16px",
+                  padding: "4px 12px",
+                  fontSize: "12px",
+                  cursor: "pointer",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(47,143,128,0.4)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(245,242,234,0.1)"; }}
+              >
+                {title}
+              </button>
+            ))}
+          </div>
+
           {searched && !loading && candidates.length > 0 && (
             <div className="rd-stats-row">
               <div className="rd-stat">

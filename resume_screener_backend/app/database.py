@@ -5,6 +5,7 @@ If Atlas cluster is paused, deleted, or DNS fails, falls back gracefully to in-m
 so the API NEVER crashes on startup, allowing all routes (ATS scoring, AI services, Auth) to work seamlessly.
 """
 import logging
+import re
 from datetime import datetime, timezone
 from bson import ObjectId
 from pymongo import MongoClient
@@ -49,6 +50,10 @@ class InMemoryCollection:
                     if str(d.get("_id")) != str(v):
                         match = False
                         break
+                elif isinstance(v, str) and isinstance(d.get(k), str):
+                    if d.get(k, "").lower() != v.lower():
+                        match = False
+                        break
                 elif d.get(k) != v:
                     match = False
                     break
@@ -64,6 +69,11 @@ class InMemoryCollection:
                 for k, v in filter_dict.items():
                     if k == "_id":
                         if str(d.get("_id")) != str(v):
+                            match = False
+                            break
+                    elif isinstance(v, str) and isinstance(d.get(k), str):
+                        # Case-insensitive match for job titles
+                        if d.get(k, "").strip().lower() != v.strip().lower():
                             match = False
                             break
                     elif d.get(k) != v:
@@ -107,7 +117,6 @@ db = None
 
 if MONGO_URI:
     try:
-        # Connect with short timeout so a paused cluster doesn't hang worker startup
         temp_client = MongoClient(
             MONGO_URI,
             serverSelectionTimeoutMS=2000,
@@ -144,8 +153,9 @@ else:
     logs_col = InMemoryCollection("logs")
     sessions_col = InMemoryCollection("sessions")
 
-    # Seed sample candidates so the candidate ranking page shows data even offline
+    # Seed realistic candidate pools for major tech job profiles so recruiters can search and test anytime
     sample_candidates = [
+        # 1. AI Engineer
         {
             "name": "Sarah Chen",
             "job_position_name": "AI Engineer",
@@ -169,6 +179,115 @@ else:
             "matched_skills": ["Python", "FastAPI", "Docker"],
             "missing_skills": ["PyTorch", "NLP", "Transformers"],
             "cosine_similarity": 0.72,
+        },
+        # 2. Data Scientist
+        {
+            "name": "David Miller",
+            "job_position_name": "Data Scientist",
+            "ats_score": 94.2,
+            "matched_skills": ["Python", "Pandas", "Scikit-Learn", "SQL", "Statistics", "Machine Learning"],
+            "missing_skills": ["Tableau"],
+            "cosine_similarity": 0.91,
+        },
+        {
+            "name": "Priya Sharma",
+            "job_position_name": "Data Scientist",
+            "ats_score": 87.6,
+            "matched_skills": ["Python", "R", "SQL", "Machine Learning", "Data Visualization"],
+            "missing_skills": ["Deep Learning", "AWS"],
+            "cosine_similarity": 0.83,
+        },
+        {
+            "name": "Marcus Vance",
+            "job_position_name": "Data Scientist",
+            "ats_score": 79.1,
+            "matched_skills": ["Python", "Pandas", "NumPy", "Data Cleaning"],
+            "missing_skills": ["Machine Learning", "SQL"],
+            "cosine_similarity": 0.75,
+        },
+        # 3. Frontend Developer
+        {
+            "name": "Jessica Taylor",
+            "job_position_name": "Frontend Developer",
+            "ats_score": 93.8,
+            "matched_skills": ["React", "JavaScript", "TypeScript", "Tailwind CSS", "HTML5", "CSS3"],
+            "missing_skills": ["Next.js"],
+            "cosine_similarity": 0.89,
+        },
+        {
+            "name": "Rohan Patel",
+            "job_position_name": "Frontend Developer",
+            "ats_score": 84.5,
+            "matched_skills": ["JavaScript", "React", "Redux", "CSS3"],
+            "missing_skills": ["TypeScript", "GraphQL"],
+            "cosine_similarity": 0.80,
+        },
+        {
+            "name": "Chloe Bennett",
+            "job_position_name": "Frontend Developer",
+            "ats_score": 76.2,
+            "matched_skills": ["HTML5", "CSS3", "JavaScript"],
+            "missing_skills": ["React", "TypeScript"],
+            "cosine_similarity": 0.71,
+        },
+        # 4. Backend Developer
+        {
+            "name": "Vikram Malhotra",
+            "job_position_name": "Backend Developer",
+            "ats_score": 95.0,
+            "matched_skills": ["Python", "FastAPI", "PostgreSQL", "Docker", "Redis", "REST APIs"],
+            "missing_skills": ["Kubernetes"],
+            "cosine_similarity": 0.93,
+        },
+        {
+            "name": "Liam Murphy",
+            "job_position_name": "Backend Developer",
+            "ats_score": 86.3,
+            "matched_skills": ["Python", "Django", "SQL", "Docker"],
+            "missing_skills": ["FastAPI", "Microservices"],
+            "cosine_similarity": 0.82,
+        },
+        {
+            "name": "Sophia Wang",
+            "job_position_name": "Backend Developer",
+            "ats_score": 77.8,
+            "matched_skills": ["Node.js", "Express", "MongoDB"],
+            "missing_skills": ["Python", "PostgreSQL"],
+            "cosine_similarity": 0.73,
+        },
+        # 5. Full Stack Developer
+        {
+            "name": "Ananya Joshi",
+            "job_position_name": "Full Stack Developer",
+            "ats_score": 91.0,
+            "matched_skills": ["React", "Node.js", "Python", "PostgreSQL", "Docker", "Git"],
+            "missing_skills": ["AWS"],
+            "cosine_similarity": 0.87,
+        },
+        {
+            "name": "Daniel Kim",
+            "job_position_name": "Full Stack Developer",
+            "ats_score": 82.4,
+            "matched_skills": ["JavaScript", "React", "Node.js", "MongoDB"],
+            "missing_skills": ["Docker", "TypeScript"],
+            "cosine_similarity": 0.78,
+        },
+        # 6. DevOps Engineer
+        {
+            "name": "Robert Hansen",
+            "job_position_name": "DevOps Engineer",
+            "ats_score": 94.7,
+            "matched_skills": ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Linux"],
+            "missing_skills": ["Prometheus"],
+            "cosine_similarity": 0.92,
+        },
+        {
+            "name": "Neha Verma",
+            "job_position_name": "DevOps Engineer",
+            "ats_score": 83.9,
+            "matched_skills": ["Docker", "Linux", "Jenkins", "Git"],
+            "missing_skills": ["Kubernetes", "Terraform"],
+            "cosine_similarity": 0.81,
         },
     ]
     for sc in sample_candidates:
